@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Математика әлемі — Қысқаша көбейту формулалары</title>
+<style>
+:root{
+  --bg1:#6c5ce7; --bg2:#00cec9; --card:#fff; --text:#263238;
+  --muted:#667085; --accent:#6c5ce7; --good:#16a085; --bad:#e74c3c;
+  --gold:#f9ca24; --soft:#f4f3ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;
+}
+header{color:#fff;text-align:center;padding:34px 16px 24px}
+header h1{margin:0;font-size:clamp(30px,6vw,52px)}
+header p{font-size:18px;margin:10px 0}
+.badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.badge{background:rgba(255,255,255,.18);padding:8px 14px;border-radius:999px}
+.container{max-width:1050px;margin:auto;padding:16px}
+nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+nav button{background:#fff;color:var(--accent)}
+.card{
+  background:rgba(255,255,255,.97);border-radius:24px;padding:24px;
+  margin-bottom:18px;box-shadow:0 12px 35px rgba(0,0,0,.13)
+}
+h2{margin-top:0;color:var(--accent)}
+h3{margin-bottom:8px}
+button{
+  border:0;border-radius:14px;padding:12px 18px;font-size:16px;
+  cursor:pointer;background:var(--accent);color:#fff;font-weight:700;
+  transition:.18s; margin:4px
+}
+button:hover{transform:translateY(-2px)}
+button.secondary{background:#eef0ff;color:var(--accent)}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.formula{
+  background:var(--soft);border:2px solid #e8e6ff;border-radius:18px;
+  padding:18px;text-align:center;font-size:21px;font-weight:700
+}
+.formula small{display:block;font-size:14px;color:var(--muted);margin-bottom:8px}
+.example{background:#eafff8;border-left:6px solid var(--good);padding:16px;border-radius:12px;margin:12px 0}
+.steps{line-height:1.7}
+.question{font-size:21px;font-weight:700;margin:10px 0 16px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.options button{background:#f1f2f6;color:var(--text);text-align:left}
+.options button:hover{background:#e8e6ff}
+.feedback{font-weight:700;min-height:28px;margin-top:12px}
+.good{color:var(--good)} .bad{color:var(--bad)}
+.scorebar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.score{font-size:24px;font-weight:800;color:#b77900}
+.progress{height:12px;background:#eee;border-radius:99px;overflow:hidden;margin:12px 0 18px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f9ca24,#f0932b);transition:.3s}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.level{padding:18px;border-radius:18px;background:#f7f7fb;border:2px solid #eee;text-align:center}
+.level.locked{opacity:.55}
+.hidden{display:none}
+footer{text-align:center;color:#fff;padding:25px}
+.backtop{text-align:center}
+@media(max-width:600px){.card{padding:18px}button{width:auto}.formula{font-size:18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 Математика әлемі</h1>
+  <p>7-сынып • Қысқаша көбейту формулалары</p>
+  <div class="badges">
+    <span class="badge">⭐ Ұпай жина</span>
+    <span class="badge">🧠 Үйрен</span>
+    <span class="badge">🏆 Деңгей көтер</span>
+  </div>
+</header>
+
+<div class="container">
+  <nav>
+    <button onclick="showSection('theory')">📚 Теория</button>
+    <button onclick="showSection('examples')">✏️ Мысалдар</button>
+    <button onclick="showSection('practice')">🧩 Бекіту</button>
+    <button onclick="showSection('game')">🎮 Ойын</button>
+  </nav>
+
+  <div class="card">
+    <div class="scorebar">
+      <strong>🏆 Менің нәтижем</strong>
+      <span class="score">⭐ <span id="score">0</span> ұпай</span>
+    </div>
+    <div class="progress"><span id="progress"></span></div>
+    <small id="levelText">1-деңгей: Бастау</small>
+  </div>
+
+  <section id="theory">
+    <div class="card">
+      <h2>📚 1. Формулаларды үйрен</h2>
+      <p>Қысқаша көбейту формулалары өрнектерді тез ықшамдауға көмектеседі.</p>
+      <div class="formula-grid">
+        <div class="formula"><small>Қосындының квадраты</small>(a + b)² = a² + 2ab + b²</div>
+        <div class="formula"><small>Айырманың квадраты</small>(a − b)² = a² − 2ab + b²</div>
+        <div class="formula"><small>Квадраттар айырмасы</small>a² − b² = (a − b)(a + b)</div>
+        <div class="formula"><small>Қосындының кубы</small>(a + b)³ = a³ + 3a²b + 3ab² + b³</div>
+        <div class="formula"><small>Айырманың кубы</small>(a − b)³ = a³ − 3a²b + 3ab² − b³</div>
+        <div class="formula"><small>Кубтар қосындысы</small>a³ + b³ = (a + b)(a² − ab + b²)</div>
+        <div class="formula"><small>Кубтар айырмасы</small>a³ − b³ = (a − b)(a² + ab + b²)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🧠 Есте сақтауға арналған лайфхак</h2>
+      <p><b>Квадратта:</b> бірінші квадрат +/− екі еселенген көбейтінді + екінші квадрат.</p>
+      <p><b>Квадраттар айырмасында:</b> «айырма × қосынды» деп есте сақта.</p>
+    </div>
+  </section>
+
+  <section id="examples" class="hidden">
+    <div class="card">
+      <h2>✏️ 2. Мысалдар</h2>
+      <div class="example">
+        <b>Мысал 1:</b> (x + 3)²<br><br>
+        (a + b)² = a² + 2ab + b²<br>
+        a = x, b = 3<br>
+        <b>Жауабы: x² + 6x + 9</b>
+      </div>
+      <div class="example">
+        <b>Мысал 2:</b> (x − 5)²<br><br>
+        (a − b)² = a² − 2ab + b²<br>
+        <b>Жауабы: x² − 10x + 25</b>
+      </div>
+      <div class="example">
+        <b>Мысал 3:</b> x² − 25<br><br>
+        x² − 5² = (x − 5)(x + 5)<br>
+        <b>Жауабы: (x − 5)(x + 5)</b>
+      </div>
+    </div>
+  </section>
+
+  <section id="practice" class="hidden">
+    <div class="card">
+      <h2>🧩 3. Бекіту</h2>
+      <p>Әр дұрыс жауапқа <b>10 ұпай</b> беріледі.</p>
+
+      <div class="question">1. (x + 4)² = ?</div>
+      <div class="options">
+        <button onclick="answer(this,false,'p1')">x² + 4x + 16</button>
+        <button onclick="answer(this,true,'p1')">x² + 8x + 16</button>
+        <button onclick="answer(this,false,'p1')">x² + 16</button>
+      </div>
+      <div id="p1" class="feedback"></div>
+
+      <div class="question">2. x² − 49 = ?</div>
+      <div class="options">
+        <button onclick="answer(this,false,'p2')">(x − 7)²</button>
+        <button onclick="answer(this,true,'p2')">(x − 7)(x + 7)</button>
+        <button onclick="answer(this,false,'p2')">(x + 49)(x − 1)</button>
+      </div>
+      <div id="p2" class="feedback"></div>
+
+      <div class="question">3. (a − b)² = ?</div>
+      <div class="options">
+        <button onclick="answer(this,true,'p3')">a² − 2ab + b²</button>
+        <button onclick="answer(this,false,'p3')">a² + 2ab + b²</button>
+        <button onclick="answer(this,false,'p3')">a² − b²</button>
+      </div>
+      <div id="p3" class="feedback"></div>
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="card">
+      <h2>🎮 4. Формула аңшысы</h2>
+      <p>Дұрыс формуланы тап! Әр дұрыс жауап — <b>15 ұпай</b>.</p>
+      <div class="question" id="gameQuestion"></div>
+      <div class="options" id="gameOptions"></div>
+      <div id="gameFeedback" class="feedback"></div>
+      <button onclick="nextGameQuestion()">➡️ Келесі сұрақ</button>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Деңгейлер</h2>
+      <div class="levels">
+        <div class="level">🟢<h3>Бастау</h3><p>0+ ұпай</p></div>
+        <div class="level">🟡<h3>Зерттеуші</h3><p>30+ ұпай</p></div>
+        <div class="level">🟠<h3>Шебер</h3><p>70+ ұпай</p></div>
+        <div class="level">🔴<h3>Формула чемпионы</h3><p>120+ ұпай</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="card backtop">
+    <button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️ Жоғарыға</button>
+    <button onclick="resetGame()">🔄 Нәтижені өшіру</button>
+  </div>
+</div>
+
+<footer>
+  📐 7-сынып математикасы • Қысқаша көбейту формулалары
+</footer>
+
+<script>
+let score = Number(localStorage.getItem('mathScore') || 0);
+let answered = JSON.parse(localStorage.getItem('answered') || '{}');
+
+const gameQuestions = [
+  {
+    q:"a² − b² қандай формула?",
+    options:["(a − b)²","(a − b)(a + b)","(a + b)³"],
+    correct:1
+  },
+  {
+    q:"(a + b)² қандай формула?",
+    options:["a² + 2ab + b²","a² − 2ab + b²","a² − b²"],
+    correct:0
+  },
+  {
+    q:"a³ − b³ қандай формула?",
+    options:[
+      "(a + b)(a² − ab + b²)",
+      "(a − b)(a² + ab + b²)",
+      "(a − b)³"
+    ],
+    correct:1
+  },
+  {
+    q:"(a − b)² қандай формула?",
+    options:["a² + 2ab + b²","a² − 2ab + b²","a² − b²"],
+    correct:1
+  }
+];
+
+let gameIndex = 0;
+
+function updateScore(){
+  document.getElementById('score').textContent = score;
+  localStorage.setItem('mathScore',score);
+
+  const progress = Math.min(score/120*100,100);
+  document.getElementById('progress').style.width = progress + '%';
+
+  let level = score >= 120 ? "🏆 Формула чемпионы" :
+              score >= 70 ? "🔴 Шебер" :
+              score >= 30 ? "🟡 Зерттеуші" : "🟢 Бастау";
+
+  document.getElementById('levelText').textContent = level;
+}
+
+function showSection(id){
+  ['theory','examples','practice','game'].forEach(x=>{
+    document.getElementById(x).classList.toggle('hidden',x!==id);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function answer(btn,correct,id){
+  if(answered[id]) return;
+
+  const box=document.getElementById(id);
+  answered[id]=true;
+  localStorage.setItem('answered',JSON.stringify(answered));
+
+  if(correct){
+    score+=10;
+    box.textContent="🎉 Дұрыс! +10 ұпай!";
+    box.className="feedback good";
+    btn.style.background="#dff8ee";
+  }else{
+    box.textContent="❌ Қате. Формуланы қайта қарап көр!";
+    box.className="feedback bad";
+  }
+  updateScore();
+}
+
+function renderGame(){
+  const item=gameQuestions[gameIndex];
+  document.getElementById('gameQuestion').textContent=item.q;
+  const options=document.getElementById('gameOptions');
+  options.innerHTML='';
+  document.getElementById('gameFeedback').textContent='';
+
+  item.options.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.textContent=opt;
+    b.onclick=()=>{
+      if(i===item.correct){
+        score+=15;
+        document.getElementById('gameFeedback').textContent="🔥 Керемет! +15 ұпай!";
+        document.getElementById('gameFeedback').className="feedback good";
+      }else{
+        document.getElementById('gameFeedback').textContent="😅 Дұрыс емес. Тағы бір рет ойлан!";
+        document.getElementById('gameFeedback').className="feedback bad";
+      }
+      options.querySelectorAll('button').forEach(x=>x.disabled=true);
+      updateScore();
+    };
+    options.appendChild(b);
+  });
+}
+
+function nextGameQuestion(){
+  gameIndex=(gameIndex+1)%gameQuestions.length;
+  renderGame();
+}
+
+function resetGame(){
+  score=0;
+  answered={};
+  localStorage.removeItem('mathScore');
+  localStorage.removeItem('answered');
+  document.querySelectorAll('.feedback').forEach(x=>x.textContent='');
+  updateScore();
+}
+
+updateScore();
+renderGame();
+</script>
+</body>
+</html>
